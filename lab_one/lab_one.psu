@@ -1,0 +1,90 @@
+//J.Halverson Lab One
+
+//Using statements
+using System;
+using System.Collections.Generic;
+
+START //Start of the main method
+
+	DECLARATIONS
+	
+	//Declaring an array that holds correctAnswers
+	string correctAnswers [2] = { "B", "B"};
+	
+	//An array for end-users selection
+	string userSelection[2];
+	
+	//Declaring an array that holds the questions
+	string quizQuestions[2] = {"When was .NET core released", "What is the current version of .NET core"}
+
+	//Declare a Multi-dimensional array that holds options for each question
+	string quizQuestionOptions [ , ] = {
+											
+												{"A) 2019", "B) 2014", "C) 2003", "D)1990"},
+												
+												{"A) 1.0", "B) 2.2", "C) 10.0", "D) 3.0" }
+										};
+	string selection;
+	num start
+	num EXIT = -1; //Sentinel Value
+	
+	List<string> correct = new List<string>();
+	List<string> wrong = new List<string> ();
+
+
+	start = greetings(); //Calling the greetings module
+	
+	WHILE start != EXIT
+		
+		FOR(num x = 0; x < quizQuestions.Length; x++){
+		
+			OUTPUT quizQuestions[x]
+			FOR(num i = 0; i < quizQuestionOptions.GetLength(1); i++){
+				OUTPUT quizQuestionOptions[x,i]
+			}
+			OUTPUT "Please enter an option"
+			INPUT selection
+			userSelection[x] = selection
+			
+			//Need to determine if the user's selection is the correct answer
+			IF( selection == correctAnswers[x])THEN
+				correct.Add(selection)
+			ELSE
+				wrong.Add("Question: " + (x + 1) + ") " + selection)
+			ENDIF
+			
+		}
+		
+		OUTPUT "You answered " + correct.Count + " out of " + quizQuestions.Length
+		
+		//Determine if they passed the quiz(7/10 or higher)
+		var results = (correct.Count >= 7) ? "You passed the quiz " : " You didn't pass the quiz ";
+		
+		//OUTPUT the wrong questions/answers
+		IF(wrong.Count > 0) THEN 
+			OUTPUT "Listed below are the questions you got wrong"
+			wrong.ForEach( x => { OUTPUT x});
+		ENDIF
+		
+		wrong.Clear()
+		correct.Clear()
+		
+		OUTPUT "To take the quiz again, enter any value other than -1.  To exit enter -1"
+		INPUT start
+		
+	ENDWHILE
+	
+	OUTPUT "Program has concluded"
+
+
+STOP
+
+//Modulization
+//Defining the greetings() method
+static void greetings() //Method header
+	num start
+	OUTPUT "Welcome, this program will assess your knowledge of .NET Core"
+	OUTPUT "To get started, please enter a number other than -1 to start the program"
+	//Figure out how to get the program to start by clicking enter for Lab 1
+	INPUT start
+RETURN start
